@@ -5,13 +5,26 @@
 ### Filters
 Filters are square matrices that, when multiplied by an equal-shaped subsection of an image, achieve a certain operation. Various CV operations can be boiled down to using filters - such as, Haar cascades, edge detection, sobel filters etc.
 
-#### Filter examples
+#### High-Pass Filters: To affect areas of high gradient
+HPF filters helps in finding edges in the images.
 
-...
+#### Low-Pass Filters: To affect areas of low gradient
+LPF helps in removing noises, blurring the images etc.
 
-### Color spaces
+### Transformations
+
+#### Color Space Transform
 
 Converting to GRAYSCALE is a useful first-step for many CV operations, such as to use HAAR Cascades for facial detection, or eye detection etc.
+
+#### Perspective Transform
+
+Mapping each pixel of the prior image to another pixel in the warped image.
+
+```
+M = cv2.getPerspectiveTransform(...)
+warped = cv2.warpPerspecive(image, M...)
+```
 
 ### HAAR Cascades
 
@@ -38,7 +51,7 @@ Here's an example[http://opencv-python-tutroals.readthedocs.io/en/latest/py_tuto
 
 ### Blurring/Smoothing
 
-Blurring an image helps subdue local features and enhance global features, as perceived by an edge detector. Edges are a very good feature for object classification, which is why proper edge detection is an essential pre-processing step for image classification (and various other CV operations).
+Blurring[https://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html] an image helps subdue local features and enhance global features, as perceived by an edge detector. Edges are a very good feature for object classification, which is why proper edge detection is an essential pre-processing step for image classification (and various other CV operations).
 
 If an edge detector (for example, a Canny edge detector) detects a lot of edges in a given raw image, it does so because the image's local features are just as pronounced as its global features. When that same image is blurred, its local edges get 'blurred out' while its larger global edges remain more pronounced, helping the edge detector more accurately detect the relevant edges.
 
@@ -46,5 +59,24 @@ If an edge detector (for example, a Canny edge detector) detects a lot of edges 
 cv2.filter2D()
 ```
 
+#### Different kinds of kernels
+
+- Averaging Kernel
+- Gaussian Blurring
+- Median Blurring
+- Bilateral Filtering
+
 ### Edge Detection
+
+Canny edge detection was used here. This involves:
+- Gaussian blur
+- Sobel-x, Sobel-y
+- Histeresis (low threshold for edge, high threshold for edge)
+- Unifying parallel edges into one
+
+```
+cv2.Canny(image, low_threshold, high_threshold)
+```
+
+### Dilation
 
