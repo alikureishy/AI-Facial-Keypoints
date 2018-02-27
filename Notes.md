@@ -99,7 +99,11 @@ detected = cv2.cornerHarris(gray, blockSize, kSize)
 #### Blobs
 Identified by generally unchanging gradients.
 
-##### Histogram of Gradients (HOG)
+### Feature Vectors
+
+Combinations of features can be used for classification using machine learning tools like SVMs, DNNs etc.
+
+#### Histogram of Gradients (HOG)
 
 ...
 
