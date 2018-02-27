@@ -127,3 +127,7 @@ Erosion does the opposite: it removes pixels along object boundaries and shrinks
 ```
 
 ```
+
+### Motion
+
+#### Optical Motion
