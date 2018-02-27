@@ -56,7 +56,8 @@ Blurring[https://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html] an ima
 If an edge detector (for example, a Canny edge detector) detects a lot of edges in a given raw image, it does so because the image's local features are just as pronounced as its global features. When that same image is blurred, its local edges get 'blurred out' while its larger global edges remain more pronounced, helping the edge detector more accurately detect the relevant edges.
 
 ```
-cv2.filter2D()
+averaging_kernel = np.ones((4,4),np.float32)/16
+blurred_image = cv2.filter2D(gray,-1, averaging_kernel)
 ```
 
 #### Different kinds of kernels
@@ -66,8 +67,13 @@ cv2.filter2D()
 - Median Blurring
 - Bilateral Filtering
 
-### Edge Detection
+### Features
 
+Types of features below:
+
+#### Edges
+
+##### Canny Edge Detection
 Canny edge detection was used here. This involves:
 - Gaussian blur
 - Sobel-x, Sobel-y
@@ -78,5 +84,42 @@ Canny edge detection was used here. This involves:
 cv2.Canny(image, low_threshold, high_threshold)
 ```
 
-### Dilation
+#### Corners
+Most interesting feature type, because it is the most unique of the feature types. It is the most repeatable feature, given two or more images of the same scene.
 
+##### Harris Corner Detection
+
+...
+
+```
+gray = np.float32(gray)
+detected = cv2.cornerHarris(gray, blockSize, kSize)
+```
+
+#### Blobs
+Identified by generally unchanging gradients.
+
+##### Histogram of Gradients (HOG)
+
+...
+
+### Morphological Operations
+These are often performed on binary images, similar to contour detections.
+
+#### Dilation
+Dilation enlarges bright, white areas in an image by adding pixels to the perceived boundaries of objects in that image. 
+
+```
+# Create a 5x5 kernel of ones
+kernel = np.ones((5,5),np.uint8)
+
+# Dilate the image
+dilation = cv2.dilate(image, kernel, iterations = 1)
+```
+
+#### Erosion
+Erosion does the opposite: it removes pixels along object boundaries and shrinks the size of objects.
+
+```
+
+```
